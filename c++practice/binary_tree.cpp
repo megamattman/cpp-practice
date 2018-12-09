@@ -50,7 +50,9 @@ class email_tree : public logged_class{
 
     void check_node( string email_address, tree_node* child_node){        
         if (child_node == nullptr) {
+            cout<< "We are null so lets assign!" << endl;
             child_node = create_new_node(email_address);
+            cout << "childnodes email is now " << child_node -> email_address << endl;
         } else {
             insert_email(email_address, child_node);
         }
@@ -59,8 +61,11 @@ class email_tree : public logged_class{
     void insert_email(string email_address, tree_node* current_node) {                
         if (current_node != nullptr){            
             if (email_address <=  current_node->email_address){
+                cout << "going left" << endl;
                 check_node( email_address, current_node->left_child);
+                cout << "Has assignment stuck?: " << current_node->left_child->email_address << endl;
             } else {
+                cout << "going right" << endl;
                 check_node(email_address, current_node->right_child);
             }
         }
@@ -73,6 +78,7 @@ class email_tree : public logged_class{
     string lookup_email (string email_address, tree_node* current_node) { 
         cout << "looking up " << email_address << endl;
         if (current_node == nullptr) return "Cannot find email address \n";
+        cout << "Current node's email address: " << current_node->email_address << endl;
         if (current_node->email_address == email_address) {
             return email_address;
         } else if (email_address <=  current_node->email_address){
@@ -98,17 +104,10 @@ int main (void) {
     my_email_tree->insert_email(email_address);
     
     my_email_tree->insert_email("1.c");
-    my_email_tree->insert_email("2.c");
-    my_email_tree->insert_email("a.c");
-    my_email_tree->insert_email("s.c");
-    my_email_tree->insert_email("b@l.c");
 
 
     check_for_email(email_address, my_email_tree);
-    check_for_email("2.c"  , my_email_tree);
-    check_for_email("a.c"  , my_email_tree);
-    check_for_email("s.c"  , my_email_tree);
-    check_for_email("b@l.c", my_email_tree);
+    check_for_email("1.c"  , my_email_tree);
 
      
 
