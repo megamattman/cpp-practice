@@ -9,11 +9,13 @@
 using namespace std;
 class logger {
     ofstream output_stream;    
-    public:
-    string log_file_name = "test_log";
+    public:    
 
     logger (string out_file){
         output_stream.open(out_file);
+    }    
+    ~logger(){
+        output_stream.close();
     }
     template <class logType>
     void write_to_stream(logType output_string){
@@ -26,13 +28,12 @@ class logged_class {
 
     public:
     logger *my_logger;
+    logged_class(){};
     logged_class(logger *new_logger){
-        my_logger = new_logger;
+        set_logger(my_logger);
+    }
+    void set_logger(logger* my_logger){
+        my_logger = my_logger;
     }
 
 };
-
-int main (void) {
-    logger new_logger("test_outputfile");
-    logged_class my_logged_class(&new_logger);
-}
